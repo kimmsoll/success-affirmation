@@ -1,3 +1,5 @@
+type LogoutResponse = { id: number };
+type KakaoAuthError = { code: number; msg: string };
 declare global {
   interface Window {
     Kakao: {
@@ -7,6 +9,8 @@ declare global {
         //TODO: any
         authorize: (params: any) => void;
         setAccessToken: (token: string) => void;
+        getAccessToken: () => string;
+        logout: () => Promise<LogoutResponse | KakaoAuthError>;
       };
     };
   }
