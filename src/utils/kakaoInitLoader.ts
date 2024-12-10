@@ -3,6 +3,11 @@ declare global {
     Kakao: {
       init: (key: string) => void;
       isInitialized: () => boolean;
+      Auth: {
+        //TODO: any
+        authorize: (params: any) => void;
+        setAccessToken: (token: string) => void;
+      };
     };
   }
 }
@@ -13,7 +18,7 @@ export const kakaoInitLoader = async (): Promise<{ isKakaoInitialized: boolean }
   }
 
   if (!window.Kakao.isInitialized()) {
-    await window.Kakao.init(process.env.REACT_APP_KAKAO_API_KEY!);
+    await window.Kakao.init(process.env.REACT_APP_KAKAO_Javascript_KEY!);
   }
   const isInitialized = window.Kakao.isInitialized();
   return { isKakaoInitialized: isInitialized };

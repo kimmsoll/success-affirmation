@@ -5,6 +5,8 @@ import './index.css';
 import App from './App';
 import Login from 'routes/login';
 import { kakaoInitLoader } from 'utils/kakaoInitLoader';
+import KakaoAuth from 'routes/auth';
+import Home from 'routes/home';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Login />,
+      },
+      {
+        path: '/auth',
+        element: <KakaoAuth />,
+      },
+      {
+        path: '/home',
+        element: <Home />,
       },
     ],
   },
