@@ -7,6 +7,7 @@ import Login from 'routes/login';
 import { kakaoInitLoader } from 'utils/kakaoInitLoader';
 import KakaoAuth from 'routes/auth';
 import Home from 'routes/home';
+import ProtectedRoute from 'routes/protectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/home',
-        element: <Home />,
+        element: (
+          <ProtectedRoute redirectUrl='/'>
+            <Home />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

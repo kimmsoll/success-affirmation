@@ -1,3 +1,4 @@
+import { useAuthContext } from 'context/AuthContext';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -5,9 +6,11 @@ const KakaoAuth = () => {
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
   const navigate = useNavigate();
+  const auth = useAuthContext();
 
-  const setAccessToken = (token: string) => {
-    window.Kakao.Auth.setAccessToken(token);
+  const setAccessToken = async (token: string) => {
+    await window.Kakao.Auth.setAccessToken(token);
+    auth?.setIsAuthed(true);
   };
 
   const getAccessToken = async (code: string) => {
@@ -41,7 +44,6 @@ const KakaoAuth = () => {
           const token = await getAccessToken(code);
           if (token) {
             setAccessToken(token);
-            navigate('/home', { replace: true });
           }
         } catch (e) {
           console.log('토큰 요청 에러!', e);
@@ -49,6 +51,12 @@ const KakaoAuth = () => {
       }
     })();
   }, [code]);
+
+  useEffect(() => {
+    if (auth?.isAuthed) {
+      navigate('/home', { replace: true });
+    }
+  }, [auth?.isAuthed]);
 
   return <></>;
 };
