@@ -1,5 +1,6 @@
 import { AuthContextProvider } from 'context/AuthContext';
-import { Outlet, useLoaderData } from 'react-router-dom';
+import MainLayout from 'layouts/MainLayout';
+import { useLoaderData } from 'react-router-dom';
 
 function App() {
   const kakaoInitLoaderData: { isKakaoInitialized: boolean } = useLoaderData();
@@ -7,7 +8,7 @@ function App() {
 
   return (
     <AuthContextProvider>
-      <Outlet />
+      <MainLayout />
     </AuthContextProvider>
   );
 }
