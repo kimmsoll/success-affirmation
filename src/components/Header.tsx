@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import Button from './Button';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -18,11 +19,18 @@ const Header = () => {
     }
   };
 
+  const handleClickAdd = () => {};
+
   return (
-    <header className='flex justify-end p-10'>
-      <button type='button' onClick={handleClickLogout} className='p-1'>
-        로그아웃.
-      </button>
+    <header className='flex justify-end px-5 py-5 shadow shadow-gray-900'>
+      <ul className='flex gap-2'>
+        <li>
+          <Button onClick={handleClickLogout} size='sm' text='로그아웃' />
+        </li>
+        <li>
+          <Button onClick={handleClickLogout} size='sm' text='확언등록' />
+        </li>
+      </ul>
     </header>
   );
 };
