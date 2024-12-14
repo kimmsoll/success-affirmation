@@ -6,8 +6,8 @@ const Login = () => {
   };
 
   return (
-    <div className='h-full bg-black-500 flex justify-center items-center'>
-      <div className='flex flex-col gap-20'>
+    <div className='h-full flex justify-center items-center'>
+      <div className='flex flex-col gap-12'>
         <header className='text-center'>
           <h1 className='text-2xl font-bold text-gray-100  whitespace-pre-wrap'>{`매일 당신의 목소리로\n성공을 확언하세요.`}</h1>
         </header>
