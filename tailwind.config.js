@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     colors: {
       transparent: 'transparent',
-      while: {
+      white: {
         500: '#FFFFFF',
       },
       gray: {
@@ -19,7 +19,9 @@ module.exports = {
         900: '#2F3032',
       },
       black: {
+        400: '#2B2B2F',
         500: '#252527',
+        600: '#19191A',
       },
       yellow: {
         500: '#F5F378',
@@ -36,5 +38,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };

@@ -8,6 +8,9 @@ import { kakaoInitLoader } from 'utils/kakaoInitLoader';
 import KakaoAuth from 'routes/auth';
 import Home from 'routes/home';
 import ProtectedRoute from 'routes/protectedRoute';
+import CreateAffirmation from 'routes/affirmation/create';
+
+const redirectUrl = '/';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +19,6 @@ const router = createBrowserRouter([
     // errorElement: <NotFound />,
     loader: kakaoInitLoader,
     children: [
-      // {index:true, path: '/', element: <Home/>}
       {
         path: '/',
         element: <Login />,
@@ -28,8 +30,16 @@ const router = createBrowserRouter([
       {
         path: '/home',
         element: (
-          <ProtectedRoute redirectUrl='/'>
+          <ProtectedRoute redirectUrl={redirectUrl}>
             <Home />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/affirmation/create',
+        element: (
+          <ProtectedRoute redirectUrl={redirectUrl}>
+            <CreateAffirmation />
           </ProtectedRoute>
         ),
       },
