@@ -1,4 +1,4 @@
-import { child, get, ref, runTransaction, set } from 'firebase/database';
+import { child, get, ref, remove, runTransaction, set } from 'firebase/database';
 import { database, dbRef } from 'services/firebase';
 import { AffirmationItemType } from 'types/affirmation';
 
@@ -54,5 +54,14 @@ export const updateAffirmationItem = async (id: string, newContent: string) => {
     });
   } catch (e) {
     console.error(e);
+  }
+};
+
+export const deleteAffirmationItem = async (id: string) => {
+  try {
+    await remove(ref(database, `affirmation/${id}`));
+  } catch (error) {
+    console.error('삭제 실패:', error);
+    throw new Error('데이터 삭제에 실패했습니다.');
   }
 };
