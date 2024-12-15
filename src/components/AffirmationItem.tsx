@@ -4,12 +4,14 @@ import Button from 'components/Button';
 import { useState } from 'react';
 import { AffirmationItemType } from 'types/affirmation';
 import { getFormattedDate } from 'utils/getFormattedDate';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   data: AffirmationItemType;
 }
 
 const AffirmationItem = ({ data }: Props) => {
+  const navigate = useNavigate();
   const [isFold, setIsFold] = useState(true);
 
   const handleToggleFold = () => {
@@ -17,7 +19,10 @@ const AffirmationItem = ({ data }: Props) => {
   };
 
   const handleClickRead = () => {};
-  const handleClickEdit = () => {};
+
+  const handleClickEdit = () => {
+    navigate(`/affirmation/update/${data.id}`);
+  };
 
   return (
     <li className='w-full min-w-80 max-w-lg bg-black-400 p-5 flex flex-col gap-4 rounded-lg'>

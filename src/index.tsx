@@ -9,6 +9,7 @@ import KakaoAuth from 'routes/auth';
 import Home from 'routes/home';
 import ProtectedRoute from 'routes/protectedRoute';
 import CreateAffirmation from 'routes/affirmation/create';
+import UpdateAffirmation from 'routes/affirmation/update';
 
 const redirectUrl = '/';
 
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute redirectUrl={redirectUrl}>
             <CreateAffirmation />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/affirmation/update/:id',
+        element: (
+          <ProtectedRoute redirectUrl={redirectUrl}>
+            <UpdateAffirmation />
           </ProtectedRoute>
         ),
       },
