@@ -1,4 +1,4 @@
-import { createAffirmationItem } from 'api/firebase/create';
+import { createAffirmationItem } from 'api/firebase/affirmation';
 import FormButton from 'components/Button/FormButton';
 import { useState } from 'react';
 
