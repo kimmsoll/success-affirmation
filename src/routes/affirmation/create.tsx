@@ -1,4 +1,5 @@
 import { createAffirmationItem } from 'api/firebase/affirmation';
+import BackButton from 'components/Button/BackButton';
 import FormButton from 'components/Button/FormButton';
 import { useState } from 'react';
 
@@ -43,7 +44,10 @@ const CreateAffirmation = () => {
           required
           className='h-80 w-80 rounded-lg bg-gray-700 p-5 resize-none border-transparent focus:border-transparent focus:ring-0 break-keep'
         />
-        <FormButton text='생성하기' disabled={isDisabled} />
+        <div className='w-full flex justify-around'>
+          <BackButton />
+          <FormButton text='생성하기' disabled={isDisabled} />
+        </div>
       </form>
     </section>
   );
