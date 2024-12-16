@@ -49,14 +49,10 @@ const AffirmationItem = ({ data }: Props) => {
       </p>
       <div className='flex place-content-between'>
         <div className='flex gap-2'>
-          <Button
-            onClick={() => handleClickDelete(data.id)}
-            size='md'
-            icon={<FaRegTrashAlt className='text-gray-900' />}
-          />
-          <Button onClick={handleClickEdit} size='md' icon={<MdModeEdit className='text-gray-900' />} />
+          <Button onClick={() => handleClickDelete(data.id)} style='icon' icon={<FaRegTrashAlt />} />
+          <Button onClick={handleClickEdit} style='icon' icon={<MdModeEdit />} />
         </div>
-        <Button onClick={handleClickRead} size='lg' text='확언읽기' icon={<FaMicrophone />} />
+        <Button onClick={handleClickRead} style='md' text='확언읽기' icon={<FaMicrophone />} />
       </div>
     </li>
   );
