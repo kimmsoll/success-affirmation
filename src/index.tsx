@@ -10,6 +10,7 @@ import Home from 'routes/home';
 import ProtectedRoute from 'routes/protectedRoute';
 import CreateAffirmation from 'routes/affirmation/create';
 import UpdateAffirmation from 'routes/affirmation/update';
+import ReadAffirmation from 'routes/affirmation/read';
 
 const redirectUrl = '/';
 
@@ -49,6 +50,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute redirectUrl={redirectUrl}>
             <UpdateAffirmation />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/affirmation/read/:id',
+        element: (
+          <ProtectedRoute redirectUrl={redirectUrl}>
+            <ReadAffirmation />
           </ProtectedRoute>
         ),
       },

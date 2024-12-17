@@ -19,7 +19,9 @@ const AffirmationItem = ({ data }: Props) => {
     setIsFold((prev) => !prev);
   };
 
-  const handleClickRead = () => {};
+  const handleClickRead = () => {
+    navigate(`/affirmation/read/${data.id}`);
+  };
 
   const handleClickEdit = () => {
     navigate(`/affirmation/update/${data.id}`);
@@ -49,8 +51,8 @@ const AffirmationItem = ({ data }: Props) => {
       </p>
       <div className='flex place-content-between'>
         <div className='flex gap-2'>
-          <Button onClick={() => handleClickDelete(data.id)} style='icon' icon={<FaRegTrashAlt />} />
-          <Button onClick={handleClickEdit} style='icon' icon={<MdModeEdit />} />
+          <Button onClick={() => handleClickDelete(data.id)} style='icon_gray' icon={<FaRegTrashAlt />} />
+          <Button onClick={handleClickEdit} style='icon_gray' icon={<MdModeEdit />} />
         </div>
         <Button onClick={handleClickRead} style='md' text='확언읽기' icon={<FaMicrophone />} />
       </div>
