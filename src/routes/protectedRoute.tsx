@@ -1,5 +1,5 @@
 import { useAuthContext } from 'context/AuthContext';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement } from 'react';
 import { Navigate } from 'react-router-dom';
 
 interface Props {
