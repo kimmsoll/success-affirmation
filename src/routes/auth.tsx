@@ -1,11 +1,10 @@
 import { useAuthContext } from 'context/AuthContext';
-import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const KakaoAuth = () => {
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
-  const navigate = useNavigate();
   const auth = useAuthContext();
 
   const setAccessToken = async (token: string) => {
@@ -51,12 +50,6 @@ const KakaoAuth = () => {
       }
     })();
   }, [code]);
-
-  useEffect(() => {
-    if (auth?.isAuthed) {
-      navigate('/home', { replace: true });
-    }
-  }, [auth?.isAuthed]);
 
   return <></>;
 };

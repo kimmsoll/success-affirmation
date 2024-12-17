@@ -11,6 +11,7 @@ import ProtectedRoute from 'routes/protectedRoute';
 import CreateAffirmation from 'routes/affirmation/create';
 import UpdateAffirmation from 'routes/affirmation/update';
 import ReadAffirmation from 'routes/affirmation/read';
+import RedirectIfAuthenticated from 'routes/replaceIfAuthenticatedRoute';
 
 const redirectUrl = '/';
 
@@ -23,11 +24,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Login />,
+        element: (
+          <RedirectIfAuthenticated>
+            <Login />
+          </RedirectIfAuthenticated>
+        ),
       },
       {
         path: '/auth',
-        element: <KakaoAuth />,
+        element: (
+          <RedirectIfAuthenticated>
+            <KakaoAuth />
+          </RedirectIfAuthenticated>
+        ),
       },
       {
         path: '/home',
