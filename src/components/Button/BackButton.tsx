@@ -8,7 +8,7 @@ const BackButton = () => {
     navigate(-1);
   };
 
-  return <Button onClick={handleGoBack} style='lg' text='취소' />;
+  return <Button onClick={handleGoBack} style='lg_gray' text='취소' />;
 };
 
 export default BackButton;

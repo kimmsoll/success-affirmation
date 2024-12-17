@@ -32,6 +32,7 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:16.18.122"],\
           ["@types/react", "npm:19.0.1"],\
           ["@types/react-dom", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:18.3.5"],\
+          ["@types/react-speech-recognition", "npm:3.9.5"],\
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-react-app", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:7.0.1"],\
           ["firebase", "npm:11.1.0"],\
@@ -40,6 +41,7 @@ const RAW_RUNTIME_STATE =
           ["react-icons", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:5.4.0"],\
           ["react-router-dom", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:7.0.2"],\
           ["react-scripts", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:5.0.1"],\
+          ["react-speech-recognition", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:3.10.0"],\
           ["tailwindcss", "npm:3.4.16"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"]\
         ],\
@@ -5714,6 +5716,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/dom-speech-recognition", [\
+      ["npm:0.0.4", {\
+        "packageLocation": "./.yarn/cache/@types-dom-speech-recognition-npm-0.0.4-51172e4995-0320bc8643.zip/node_modules/@types/dom-speech-recognition/",\
+        "packageDependencies": [\
+          ["@types/dom-speech-recognition", "npm:0.0.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/eslint", [\
       ["npm:8.56.12", {\
         "packageLocation": "./.yarn/cache/@types-eslint-npm-8.56.12-3bfdf2144c-e4ca426abe.zip/node_modules/@types/eslint/",\
@@ -6001,6 +6012,16 @@ const RAW_RUNTIME_STATE =
         ],\
         "packagePeers": [\
           "@types/react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@types/react-speech-recognition", [\
+      ["npm:3.9.5", {\
+        "packageLocation": "./.yarn/cache/@types-react-speech-recognition-npm-3.9.5-7c32fb6ab4-1765821eb7.zip/node_modules/@types/react-speech-recognition/",\
+        "packageDependencies": [\
+          ["@types/react-speech-recognition", "npm:3.9.5"],\
+          ["@types/dom-speech-recognition", "npm:0.0.4"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -16397,6 +16418,28 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["react-speech-recognition", [\
+      ["npm:3.10.0", {\
+        "packageLocation": "./.yarn/cache/react-speech-recognition-npm-3.10.0-48bf309234-d992de9813.zip/node_modules/react-speech-recognition/",\
+        "packageDependencies": [\
+          ["react-speech-recognition", "npm:3.10.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:3.10.0", {\
+        "packageLocation": "./.yarn/__virtual__/react-speech-recognition-virtual-808cb1b99f/0/cache/react-speech-recognition-npm-3.10.0-48bf309234-d992de9813.zip/node_modules/react-speech-recognition/",\
+        "packageDependencies": [\
+          ["react-speech-recognition", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:3.10.0"],\
+          ["@types/react", "npm:19.0.1"],\
+          ["react", "npm:19.0.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["read-cache", [\
       ["npm:1.0.0", {\
         "packageLocation": "./.yarn/cache/read-cache-npm-1.0.0-00fa89ed05-90cb275021.zip/node_modules/read-cache/",\
@@ -17771,6 +17814,7 @@ const RAW_RUNTIME_STATE =
           ["@types/node", "npm:16.18.122"],\
           ["@types/react", "npm:19.0.1"],\
           ["@types/react-dom", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:18.3.5"],\
+          ["@types/react-speech-recognition", "npm:3.9.5"],\
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-react-app", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:7.0.1"],\
           ["firebase", "npm:11.1.0"],\
@@ -17779,6 +17823,7 @@ const RAW_RUNTIME_STATE =
           ["react-icons", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:5.4.0"],\
           ["react-router-dom", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:7.0.2"],\
           ["react-scripts", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:5.0.1"],\
+          ["react-speech-recognition", "virtual:540e2ff75b1e4843aa4b72c462d3e89993d2c629748da4fa3a7167a67495d49675b3af56ee92b899829ee3bb01925ed4fe448d400c5118b21c73c87638fbdc90#npm:3.10.0"],\
           ["tailwindcss", "npm:3.4.16"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"]\
         ],\
