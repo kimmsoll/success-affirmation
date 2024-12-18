@@ -1,10 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Button from 'components/Button';
 import { useAuthContext } from 'context/AuthContext';
 
 const Header = () => {
   const auth = useAuthContext();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isCreatePage = location.pathname === '/affirmation/create';
 
   const handleClickLogout = async () => {
     // kakao logout
@@ -32,9 +35,11 @@ const Header = () => {
         <li>
           <Button onClick={handleClickLogout} style='sm' text='로그아웃' />
         </li>
-        <li>
-          <Button onClick={handleClickAdd} style='sm' text='확언등록' />
-        </li>
+        {!isCreatePage && (
+          <li>
+            <Button onClick={handleClickAdd} style='sm' text='확언등록' />
+          </li>
+        )}
       </ul>
     </header>
   );
