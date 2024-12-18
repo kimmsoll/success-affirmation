@@ -37,7 +37,7 @@ const Header = () => {
         </li>
         {!isCreatePage && (
           <li>
-            <Button onClick={handleClickAdd} style='sm' text='확언등록' />
+            <Button onClick={handleClickAdd} style='sm' text='확언생성' />
           </li>
         )}
       </ul>

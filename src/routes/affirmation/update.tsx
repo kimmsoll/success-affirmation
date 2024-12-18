@@ -2,6 +2,7 @@ import { getAffirmationItem, updateAffirmationItem } from 'api/firebase/affirmat
 import BackButton from 'components/Button/BackButton';
 import FormButton from 'components/Button/FormButton';
 import FormTextarea from 'components/Form/FormTextarea';
+import Title from 'components/Title';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AffirmationItemType } from 'types/affirmation';
@@ -53,13 +54,19 @@ const UpdateAffirmation = () => {
   }, [id]);
 
   return (
-    <form onSubmit={handleSubmit} method='post' className='h-5/6 flex flex-col justify-center items-center gap-10'>
-      <FormTextarea value={value} handleChangeValue={handleChangeValue} />
-      <div className='flex flex-col-reverse w-4/6 sm:flex-row sm:justify-center gap-2'>
-        <BackButton />
-        <FormButton text='수정하기' disabled={isDisabled} />
-      </div>
-    </form>
+    <section className='flex flex-col gap-5'>
+      <Title
+        title='확언 수정하기'
+        subTitle={`당신의 확언을 수정하여 목표를 더 명확하게 설정하세요.\n강력한 확언으로 더 빛나는 내일의 나를 만들어보세요.`}
+      />
+      <form onSubmit={handleSubmit} method='post' className='flex flex-col justify-center items-center gap-10'>
+        <FormTextarea value={value} handleChangeValue={handleChangeValue} />
+        <div className='flex flex-col-reverse w-4/6 sm:flex-row sm:justify-center gap-2'>
+          <BackButton />
+          <FormButton text='수정하기' disabled={isDisabled} />
+        </div>
+      </form>
+    </section>
   );
 };
 
