@@ -1,11 +1,10 @@
 import { getAffirmationItem, updateAffirmationItem } from 'api/firebase/affirmation';
 import BackButton from 'components/Button/BackButton';
 import FormButton from 'components/Button/FormButton';
+import FormTextarea from 'components/Form/FormTextarea';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AffirmationItemType } from 'types/affirmation';
-
-const MAX_LENGTH = 300;
 
 const UpdateAffirmation = () => {
   const { id } = useParams();
@@ -54,22 +53,13 @@ const UpdateAffirmation = () => {
   }, [id]);
 
   return (
-    <section className='h-5/6 flex justify-center items-center'>
-      <form onSubmit={handleSubmit} method='post' className='flex flex-col gap-10 items-center'>
-        <textarea
-          value={value}
-          onChange={handleChangeValue}
-          placeholder={`${MAX_LENGTH}자 이내로 입력해 주세요.`}
-          maxLength={MAX_LENGTH}
-          required
-          className='h-80 w-80 rounded-lg bg-gray-700 p-5 resize-none border-transparent focus:border-transparent focus:ring-0 break-keep'
-        />
-        <div className='w-full flex justify-around'>
-          <BackButton />
-          <FormButton text='수정하기' disabled={isDisabled} />
-        </div>
-      </form>
-    </section>
+    <form onSubmit={handleSubmit} method='post' className='h-5/6 flex flex-col justify-center items-center gap-10'>
+      <FormTextarea value={value} handleChangeValue={handleChangeValue} />
+      <div className='flex flex-col-reverse w-4/6 sm:flex-row sm:justify-center gap-2'>
+        <BackButton />
+        <FormButton text='수정하기' disabled={isDisabled} />
+      </div>
+    </form>
   );
 };
 
