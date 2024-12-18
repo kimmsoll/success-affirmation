@@ -103,13 +103,13 @@ const ReadAffirmation = () => {
 
   return (
     <section className='h-5/6 flex flex-col justify-center items-center gap-10'>
-      <div className='h-80 w-80 bg-gray-900 p-5 rounded-lg'>
-        <p className={`my-3 px-5 text-xl break-words`}>
+      <div className='h-80 w-5/6 sm:w-4/6 bg-gray-900 p-5 rounded-lg'>
+        <p className='my-3 px-5 text-xl break-words'>
           <span className='text-white-500 text-bold'>{readText}</span>
           <span className='text-gray-400'>{unreadText}</span>
         </p>
       </div>
-      <div className='flex gap-2'>
+      <div className='flex flex-col-reverse w-4/6 sm:flex-row sm:justify-center gap-2'>
         <BackButton />
         <Button onClick={handleClickReset} text='다시읽기' icon={<RiResetLeftFill />} style='lg_white' />
         {isSpeaking ? (
