@@ -3,7 +3,8 @@ import { ReactElement } from 'react';
 interface Props {
   onClick: () => void;
   style:
-    | 'sm'
+    | 'sm_gray'
+    | 'sm_white'
     | 'md'
     | 'lg_gray'
     | 'lg_white'
@@ -19,7 +20,10 @@ interface Props {
 
 const Button = ({ onClick, style, text, icon }: Props) => {
   const buttonStyle = {
-    sm: 'w-20 h-9 text-sm bg-gray-700 text-gray-100 font-semibold rounded-full hover:bg-gray-800 hover:text-yellow-600 outline outline-transparent hover:outline-2 hover:outline-yellow-600',
+    sm_gray:
+      'w-20 h-9 text-sm bg-gray-700 text-gray-100 font-semibold rounded-full hover:bg-gray-800 hover:text-yellow-600 outline outline-transparent hover:outline-2 hover:outline-yellow-600',
+    sm_white:
+      'w-20 h-9 text-sm bg-white-500 text-gray-900 font-semibold rounded-full hover:bg-gray-800 bg-yellow-600 hover:text-yellow-600 outline outline-transparent hover:outline-2 hover:outline-yellow-600',
     md: 'w-32 h-10 text-base bg-yellow-500 text-gray-900 font-semibold rounded-full hover:bg-yellow-600 hover:text-gray-800',
     lg_gray: 'sm:w-36 w-full h-10 text-base bg-gray-800 text-gray-200 font-semibold rounded-full hover:opacity-80',
     lg_white: 'sm:w-36 w-full h-10 text-base bg-gray-100 text-gray-800 font-semibold rounded-full hover:opacity-80',
