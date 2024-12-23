@@ -1,5 +1,5 @@
 import Button from 'components/Button';
-import React from 'react';
+import { ModalType } from 'hooks/useModal';
 
 interface Props {
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface Props {
   onConfirm?: () => void; // 확인 버튼에 대한 콜백 (확인 모달의 경우)
   confirmText?: string; // 확인 버튼 텍스트
   cancelText?: string; // 취소 버튼 텍스트
-  type?: 'error' | 'confirm'; // 모달 타입
+  type?: ModalType; // 모달 타입
 }
 
 const FeedbackModal = ({
