@@ -34,8 +34,13 @@ const AffirmationItem = ({ data }: Props) => {
 
   const handleDelete = async (id: string) => {
     try {
-      await deleteAffirmationItem(id);
-      window.location.reload();
+      const res = await deleteAffirmationItem(id);
+      if (res.success) {
+        window.location.reload();
+        // TODO: tanstack query: invalidated query
+      } else {
+        openModal('error');
+      }
     } catch (error) {
       console.error('삭제 중 오류 발생:', error);
       openModal('error');

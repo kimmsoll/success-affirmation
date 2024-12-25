@@ -18,13 +18,20 @@ const UpdateAffirmation = () => {
   const [data, setData] = useState<AffirmationItemType | null>(null);
   const [value, setValue] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
-  const { isOpen, openModal, closeModal, modalType } = useModal();
+  const { isOpen, openModal, closeModal, modalType, errorMessage } = useModal();
 
   const fetchData = async (id: string) => {
-    const data = await getAffirmationItem(id);
-    if (data) {
-      setData(data);
-      setValue(data.content);
+    try {
+      const res = await getAffirmationItem(id);
+      if (res.success) {
+        setData(res.data);
+        setValue(res.data.content);
+      } else {
+        openModal('error', res.error);
+      }
+    } catch (e) {
+      console.error(e);
+      openModal('error');
     }
   };
 
@@ -41,8 +48,12 @@ const UpdateAffirmation = () => {
   const handleSubmit = async () => {
     try {
       if (!!value.trim().length) {
-        await updateAffirmationItem(id as string, value.trim());
-        navigate('/');
+        const res = await updateAffirmationItem(id as string, value.trim());
+        if (res.success) {
+          navigate('/');
+        } else {
+          openModal('error', res.error);
+        }
       }
     } catch (e) {
       console.error(e);
@@ -83,7 +94,7 @@ const UpdateAffirmation = () => {
         isOpen={isOpen}
         onClose={closeModal}
         title={getModalText(modalType).title}
-        message={getModalText(modalType).message}
+        message={errorMessage ?? getModalText(modalType).message}
         onConfirm={handleSubmit}
       />
     </>

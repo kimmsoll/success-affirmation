@@ -12,7 +12,7 @@ const CreateAffirmation = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
-  const { isOpen, openModal, closeModal, modalType } = useModal();
+  const { isOpen, openModal, closeModal, modalType, errorMessage } = useModal();
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const currentValue = e.currentTarget.value;
@@ -26,8 +26,12 @@ const CreateAffirmation = () => {
   const handleSubmit = async () => {
     try {
       if (!!value.trim().length) {
-        await createAffirmationItem(value.trim());
-        navigate('/');
+        const res = await createAffirmationItem(value.trim());
+        if (res.success) {
+          navigate('/');
+        } else {
+          openModal('error', res.error);
+        }
       }
     } catch (e) {
       console.error(e);
@@ -62,7 +66,7 @@ const CreateAffirmation = () => {
         isOpen={isOpen}
         onClose={closeModal}
         title={getModalText(modalType).title}
-        message={getModalText(modalType).message}
+        message={errorMessage ?? getModalText(modalType).message}
         onConfirm={handleSubmit}
       />
     </>
