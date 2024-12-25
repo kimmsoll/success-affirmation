@@ -1,5 +1,5 @@
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getAffirmationItem } from 'api/firebase/affirmation';
 import { FaStop, FaPlay } from 'react-icons/fa';
@@ -17,6 +17,7 @@ const ReadAffirmation = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [readText, setReadText] = useState('');
   const [unreadText, setUnreadText] = useState('');
+  const unreadTextRef = useRef<HTMLSpanElement | null>(null);
 
   const fetchData = async (id: string) => {
     const data = await getAffirmationItem(id);
@@ -86,6 +87,12 @@ const ReadAffirmation = () => {
   }, [transcript, content]);
 
   useEffect(() => {
+    if (unreadTextRef.current) {
+      unreadTextRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [unreadText]);
+
+  useEffect(() => {
     if (id) {
       fetchData(id);
     }
@@ -109,10 +116,12 @@ const ReadAffirmation = () => {
         subTitle={`확언을 입으로 따라 읽어보세요.\n내 목소리를 통해 내면에 더욱 깊이 새겨집니다.`}
       />
       <section className='flex flex-col justify-center items-center gap-10'>
-        <div className='h-80 w-5/6 sm:w-4/6 bg-gray-900 p-5 rounded-lg'>
+        <div className='h-80 w-5/6 sm:w-4/6 bg-gray-900 p-5 rounded-lg overflow-scroll'>
           <p className='my-3 px-5 text-xl break-words'>
             <span className='text-white-500 text-bold'>{readText}</span>
-            <span className='text-gray-400'>{unreadText}</span>
+            <span ref={unreadTextRef} className='text-gray-400'>
+              {unreadText}
+            </span>
           </p>
         </div>
         <div className='flex flex-col-reverse w-4/6 sm:flex-row sm:justify-center gap-2'>
