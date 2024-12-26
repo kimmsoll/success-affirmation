@@ -17,19 +17,6 @@ export const handleApiError = async <T>(
   }
 };
 
-export const createAffirmationItem = async (content: string): Promise<ApiResult<void>> => {
-  const id = crypto.randomUUID();
-  return handleApiError(
-    async () =>
-      set(ref(database, 'affirmation/' + id), {
-        id,
-        content,
-        createdAt: new Date().toISOString(),
-      }),
-    '확언 생성에 실패했습니다.',
-  );
-};
-
 export const getAffirmationList = async (): Promise<ApiResult<AffirmationItemType[]>> => {
   return handleApiError(async () => {
     const res = await get(child(dbRef, 'affirmation/'));
@@ -51,21 +38,46 @@ export const getAffirmationItem = async (id: string): Promise<ApiResult<Affirmat
   }, '확언 정보를 가져오는 데 실패했습니다.');
 };
 
-export const updateAffirmationItem = async (id: string, newContent: string): Promise<ApiResult<void>> => {
+export const createAffirmationItem = async (variables: { content: string }): Promise<ApiResult<void>> => {
+  const { content } = variables;
+  const id = crypto.randomUUID();
+  return handleApiError(async () => {
+    try {
+      await set(ref(database, 'affirmation/' + id), {
+        id,
+        content,
+        createdAt: new Date().toISOString(),
+      });
+    } catch (error) {
+      throw new Error('확언 생성에 실패했습니다.');
+    }
+  }, '확언 생성에 실패했습니다.');
+};
+
+export const updateAffirmationItem = async (variables: { id: string; content: string }): Promise<ApiResult<void>> => {
+  const { id, content } = variables;
   const updateRef = ref(database, `affirmation/${id}`);
   return handleApiError(async () => {
-    runTransaction(updateRef, (item) => {
-      return {
-        id,
-        content: newContent,
-        createdAt: new Date().toISOString(),
-      };
-    });
+    try {
+      await runTransaction(updateRef, (item) => {
+        return {
+          id,
+          content,
+          createdAt: new Date().toISOString(),
+        };
+      });
+    } catch (error) {
+      throw new Error('확언 수정에 실패했습니다.');
+    }
   }, '확언 수정에 실패했습니다.');
 };
 
 export const deleteAffirmationItem = async (id: string) => {
   return handleApiError(async () => {
-    remove(ref(database, `affirmation/${id}`));
+    try {
+      await remove(ref(database, `affirmation/${id}`));
+    } catch (error) {
+      throw new Error('확언 삭제에 실패했습니다.');
+    }
   }, '확언 삭제에 실패했습니다.');
 };
