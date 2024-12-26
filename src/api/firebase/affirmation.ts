@@ -71,7 +71,8 @@ export const updateAffirmationItem = async (variables: { id: string; content: st
   }, '확언 수정에 실패했습니다.');
 };
 
-export const deleteAffirmationItem = async (id: string) => {
+export const deleteAffirmationItem = async (variables: { id: string }) => {
+  const { id } = variables;
   return handleApiError(async () => {
     try {
       await remove(ref(database, `affirmation/${id}`));

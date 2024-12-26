@@ -5,9 +5,12 @@ import { useState } from 'react';
 import { AffirmationItemType } from 'types/affirmation';
 import { getFormattedDate } from 'utils/getFormattedDate';
 import { useNavigate } from 'react-router-dom';
-import { deleteAffirmationItem } from 'api/firebase/affirmation';
+import { ApiResult, deleteAffirmationItem } from 'api/firebase/affirmation';
 import FeedbackModal from './Modal/FeedbackModal';
 import { useModal } from 'hooks/useModal';
+import { useFirebaseMutation } from 'hooks/useFirebaseMutation';
+import { useQueryClient } from '@tanstack/react-query';
+import ROUTES from 'routes';
 
 interface Props {
   data: AffirmationItemType;
@@ -19,6 +22,18 @@ const AffirmationItem = ({ data }: Props) => {
 
   const { isOpen, openModal, closeModal, modalType } = useModal();
   const isConfirmModal = modalType === 'confirm';
+
+  const queryClient = useQueryClient();
+  const { mutateAsync: deleteMutate } = useFirebaseMutation<ApiResult<void>, { id: string }>(deleteAffirmationItem, {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
+      navigate(ROUTES.ROOT);
+    },
+    onError: (error: Error) => {
+      console.error(error);
+      openModal('error');
+    },
+  });
 
   const handleToggleFold = () => {
     setIsFold((prev) => !prev);
@@ -33,18 +48,7 @@ const AffirmationItem = ({ data }: Props) => {
   };
 
   const handleDelete = async (id: string) => {
-    try {
-      const res = await deleteAffirmationItem(id);
-      if (res.success) {
-        window.location.reload();
-        // TODO: tanstack query: invalidated query
-      } else {
-        openModal('error');
-      }
-    } catch (error) {
-      console.error('삭제 중 오류 발생:', error);
-      openModal('error');
-    }
+    await deleteMutate({ id });
   };
 
   const handleClickDelete = () => {
