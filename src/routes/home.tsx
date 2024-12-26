@@ -1,41 +1,41 @@
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import AffirmationList from 'components/AffirmationList';
 import { getAffirmationList } from 'api/firebase/affirmation';
 import { AffirmationItemType } from 'types/affirmation';
 import Title from 'components/Title';
 import FeedbackModal from 'components/Modal/FeedbackModal';
 import { useModal } from 'hooks/useModal';
+import { useFirebaseQuery } from 'hooks/useFirebaseQuery';
+import LoadingSpinner from 'components/Loading';
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
   const [data, setData] = useState<AffirmationItemType[]>([]);
   const { isOpen, openModal, closeModal, errorMessage } = useModal();
 
-  const fetchData = async () => {
-    try {
-      const res = await getAffirmationList();
-      if (res.success) {
-        setData(res.data);
-      } else {
-        openModal('error', res.error);
-      }
-    } catch (e) {
-      console.error(e);
-      openModal('error');
-    }
-  };
+  const { data: fetchedData, isLoading, isError, error } = useFirebaseQuery(['affirmationList'], getAffirmationList);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (fetchedData) {
+      setData(fetchedData);
+    }
+  }, [fetchedData]);
+
+  useEffect(() => {
+    if (isError) {
+      openModal('error', error.message);
+    }
+  }, [isError]);
 
   return (
     <>
-      <section>
+      <section className='flex flex-col items-center'>
         <Title
           title='당신의 꿈은 이미 실현 가능한 현실입니다'
           subTitle={`우리의 행동 중 약 90%는 잠재의식에 의해 결정됩니다.\n목표를 명확히 하고, 매일 긍정적인 확언으로 당신의
-          잠재의식을 성공의 에너지로 채워보세요.`}
+            잠재의식을 성공의 에너지로 채워보세요.`}
         />
+        {isLoading && <LoadingSpinner />}
         <AffirmationList data={data} />
       </section>
       <FeedbackModal

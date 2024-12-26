@@ -1,18 +1,35 @@
-import { createAffirmationItem } from 'api/firebase/affirmation';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import BackButton from 'components/Button/BackButton';
 import FormButton from 'components/Button/FormButton';
 import FormTextarea from 'components/Form/FormTextarea';
 import FeedbackModal from 'components/Modal/FeedbackModal';
 import Title from 'components/Title';
+
+import { ApiResult, createAffirmationItem } from 'api/firebase/affirmation';
+import { useFirebaseMutation } from 'hooks/useFirebaseMutation';
 import { ModalType, useModal } from 'hooks/useModal';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 
 const CreateAffirmation = () => {
   const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const { isOpen, openModal, closeModal, modalType, errorMessage } = useModal();
+
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useFirebaseMutation<ApiResult<void>, { content: string }>(createAffirmationItem, {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
+      navigate('/');
+    },
+    onError: (error: Error) => {
+      console.error(error);
+      openModal('error');
+    },
+  });
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const currentValue = e.currentTarget.value;
@@ -24,21 +41,8 @@ const CreateAffirmation = () => {
   };
 
   const handleSubmit = async () => {
-    try {
-      if (!!value.trim().length) {
-        const res = await createAffirmationItem(value.trim());
-        if (res.success) {
-          navigate('/');
-        } else {
-          openModal('error', res.error);
-        }
-      }
-    } catch (e) {
-      console.error(e);
-      openModal('error');
-    } finally {
-      setValue('');
-      setIsDisabled(true);
+    if (!!value.trim().length) {
+      await mutateAsync({ content: value.trim() });
     }
   };
 
