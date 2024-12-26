@@ -14,6 +14,7 @@ import { useFirebaseQuery } from 'hooks/useFirebaseQuery';
 import { useFirebaseMutation } from 'hooks/useFirebaseMutation';
 import { useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from 'components/Loading';
+import ROUTES from 'routes';
 
 const UpdateAffirmation = () => {
   const { id } = useParams();
@@ -35,7 +36,7 @@ const UpdateAffirmation = () => {
   const { mutateAsync } = useFirebaseMutation<ApiResult<void>, { id: string; content: string }>(updateAffirmationItem, {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
-      navigate('/');
+      navigate(ROUTES.ROOT);
     },
     onError: (error: Error) => {
       console.error(error);

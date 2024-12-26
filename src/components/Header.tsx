@@ -3,12 +3,13 @@ import Button from 'components/Button';
 import { useAuthContext } from 'context/AuthContext';
 import { useModal } from 'hooks/useModal';
 import FeedbackModal from './Modal/FeedbackModal';
+import ROUTES from 'routes';
 
 const Header = () => {
   const auth = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
-  const isCreatePage = location.pathname === '/affirmation/create';
+  const isCreatePage = location.pathname === ROUTES.CREATE;
 
   const { isOpen, openModal, closeModal, modalType } = useModal();
   const isConfirmModal = modalType === 'confirm';
@@ -36,7 +37,7 @@ const Header = () => {
   };
 
   const handleClickAdd = () => {
-    navigate('/affirmation/create');
+    navigate(ROUTES.CREATE);
   };
 
   return (

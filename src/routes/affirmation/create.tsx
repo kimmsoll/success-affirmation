@@ -11,6 +11,7 @@ import { ApiResult, createAffirmationItem } from 'api/firebase/affirmation';
 import { useFirebaseMutation } from 'hooks/useFirebaseMutation';
 import { ModalType, useModal } from 'hooks/useModal';
 import { useQueryClient } from '@tanstack/react-query';
+import ROUTES from 'routes';
 
 const CreateAffirmation = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const CreateAffirmation = () => {
   const { mutateAsync } = useFirebaseMutation<ApiResult<void>, { content: string }>(createAffirmationItem, {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
-      navigate('/');
+      navigate(ROUTES.ROOT);
     },
     onError: (error: Error) => {
       console.error(error);

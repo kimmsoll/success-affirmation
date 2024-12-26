@@ -12,67 +12,71 @@ import CreateAffirmation from 'routes/affirmation/create';
 import UpdateAffirmation from 'routes/affirmation/update';
 import ReadAffirmation from 'routes/affirmation/read';
 import RedirectIfAuthenticated from 'routes/replaceIfAuthenticatedRoute';
+import ROUTES from 'routes';
 
-const redirectUrl = '/';
+const redirectUrl = ROUTES.ROOT;
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    // errorElement: <NotFound />,
-    loader: kakaoInitLoader,
-    children: [
-      {
-        path: '/',
-        element: (
-          <RedirectIfAuthenticated>
-            <Login />
-          </RedirectIfAuthenticated>
-        ),
-      },
-      {
-        path: '/auth',
-        element: (
-          <RedirectIfAuthenticated>
-            <KakaoAuth />
-          </RedirectIfAuthenticated>
-        ),
-      },
-      {
-        path: '/home',
-        element: (
-          <ProtectedRoute redirectUrl={redirectUrl}>
-            <Home />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/affirmation/create',
-        element: (
-          <ProtectedRoute redirectUrl={redirectUrl}>
-            <CreateAffirmation />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/affirmation/update/:id',
-        element: (
-          <ProtectedRoute redirectUrl={redirectUrl}>
-            <UpdateAffirmation />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: '/affirmation/read/:id',
-        element: (
-          <ProtectedRoute redirectUrl={redirectUrl}>
-            <ReadAffirmation />
-          </ProtectedRoute>
-        ),
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: ROUTES.ROOT,
+      element: <App />,
+      // errorElement: <NotFound />,
+      loader: kakaoInitLoader,
+      children: [
+        {
+          path: ROUTES.ROOT,
+          element: (
+            <RedirectIfAuthenticated>
+              <Login />
+            </RedirectIfAuthenticated>
+          ),
+        },
+        {
+          path: ROUTES.KAKAO_AUTH,
+          element: (
+            <RedirectIfAuthenticated>
+              <KakaoAuth />
+            </RedirectIfAuthenticated>
+          ),
+        },
+        {
+          path: ROUTES.HOME,
+          element: (
+            <ProtectedRoute redirectUrl={redirectUrl}>
+              <Home />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: ROUTES.CREATE,
+          element: (
+            <ProtectedRoute redirectUrl={redirectUrl}>
+              <CreateAffirmation />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: ROUTES.UPDATE,
+          element: (
+            <ProtectedRoute redirectUrl={redirectUrl}>
+              <UpdateAffirmation />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: ROUTES.READ,
+          element: (
+            <ProtectedRoute redirectUrl={redirectUrl}>
+              <ReadAffirmation />
+            </ProtectedRoute>
+          ),
+        },
+      ],
+    },
+  ],
+  { basename: '/success-affirmation' },
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
