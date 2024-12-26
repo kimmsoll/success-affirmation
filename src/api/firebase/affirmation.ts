@@ -22,9 +22,8 @@ export const getAffirmationList = async (): Promise<ApiResult<AffirmationItemTyp
     const res = await get(child(dbRef, 'affirmation/'));
     if (res.exists()) {
       const arr = Object.values(res.val()) as AffirmationItemType[];
-      return arr.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-    }
-    throw new Error('확언 목록 데이터가 없습니다.');
+      return arr.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    } else return [];
   }, '확언 목록을 가져오는 데 실패했습니다.');
 };
 
