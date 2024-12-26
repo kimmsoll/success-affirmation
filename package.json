@@ -1,6 +1,5 @@
 {
   "name": "success-affirmation",
-  "homepage": "https://kimmsoll.github.io/success-affirmation",
   "version": "0.1.0",
   "private": true,
   "packageManager": "yarn@4.5.3",
@@ -19,9 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -43,14 +40,12 @@
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "^5.62.10",
-    "@types/gh-pages": "^6",
     "@types/node": "^16.7.13",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/react-speech-recognition": "^3",
     "eslint": "8.57.0",
     "eslint-config-react-app": "^7.0.1",
-    "gh-pages": "^6.2.0",
     "tailwindcss": "^3.4.16",
     "typescript": "^4.4.2"
   }
