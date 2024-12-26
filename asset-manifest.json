@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/success-affirmation/static/css/main.3aa7392a.css",
+    "main.js": "/success-affirmation/static/js/main.67449ad6.js",
+    "index.html": "/success-affirmation/index.html",
+    "main.3aa7392a.css.map": "/success-affirmation/static/css/main.3aa7392a.css.map",
+    "main.67449ad6.js.map": "/success-affirmation/static/js/main.67449ad6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3aa7392a.css",
+    "static/js/main.67449ad6.js"
+  ]
+}
