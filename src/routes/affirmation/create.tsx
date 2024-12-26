@@ -21,16 +21,19 @@ const CreateAffirmation = () => {
 
   const queryClient = useQueryClient();
 
-  const { mutateAsync } = useFirebaseMutation<ApiResult<void>, { content: string }>(createAffirmationItem, {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
-      navigate(ROUTES.ROOT);
+  const { mutateAsync: createMutate } = useFirebaseMutation<ApiResult<void>, { content: string }>(
+    createAffirmationItem,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
+        navigate(ROUTES.ROOT);
+      },
+      onError: (error: Error) => {
+        console.error(error);
+        openModal('error');
+      },
     },
-    onError: (error: Error) => {
-      console.error(error);
-      openModal('error');
-    },
-  });
+  );
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const currentValue = e.currentTarget.value;
@@ -43,7 +46,7 @@ const CreateAffirmation = () => {
 
   const handleSubmit = async () => {
     if (!!value.trim().length) {
-      await mutateAsync({ content: value.trim() });
+      await createMutate({ content: value.trim() });
     }
   };
 

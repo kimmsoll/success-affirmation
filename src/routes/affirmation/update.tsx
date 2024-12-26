@@ -33,16 +33,19 @@ const UpdateAffirmation = () => {
     error,
   } = useFirebaseQuery(['affirmationItem', id as string], () => getAffirmationItem(id as string));
 
-  const { mutateAsync } = useFirebaseMutation<ApiResult<void>, { id: string; content: string }>(updateAffirmationItem, {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
-      navigate(ROUTES.ROOT);
+  const { mutateAsync: updateMutate } = useFirebaseMutation<ApiResult<void>, { id: string; content: string }>(
+    updateAffirmationItem,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
+        navigate(ROUTES.ROOT);
+      },
+      onError: (error: Error) => {
+        console.error(error);
+        openModal('error');
+      },
     },
-    onError: (error: Error) => {
-      console.error(error);
-      openModal('error');
-    },
-  });
+  );
 
   useEffect(() => {
     if (fetchedData) {
@@ -69,7 +72,7 @@ const UpdateAffirmation = () => {
 
   const handleSubmit = async () => {
     if (!!value.trim().length) {
-      await mutateAsync({ id: id as string, content: value.trim() });
+      await updateMutate({ id: id as string, content: value.trim() });
     }
   };
 
