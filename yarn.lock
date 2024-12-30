@@ -1561,6 +1561,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@camwiegert/typical@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@camwiegert/typical@npm:0.1.1"
+  checksum: 10c0/6b20e45eea3ec00568212b46932106ed3cfa9c14e832789aa91d952cb5c056583b6d7ea4576a7f1b4002961a1b43e8ab5aab83a0e789a4c00a403025c3c98131
+  languageName: node
+  linkType: hard
+
 "@csstools/normalize.css@npm:*":
   version: 12.1.1
   resolution: "@csstools/normalize.css@npm:12.1.1"
@@ -3548,6 +3555,24 @@ __metadata:
   dependencies:
     "@types/dom-speech-recognition": "npm:*"
   checksum: 10c0/1765821eb7f53196853b5aa668e86060a822cc83c75624b786324851d54082e7d83deb9a141f0f69f3b1e0cff2045024351294616627a5d66f6ac47212a0d44f
+  languageName: node
+  linkType: hard
+
+"@types/react-typical@npm:^0":
+  version: 0.1.2
+  resolution: "@types/react-typical@npm:0.1.2"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10c0/f44f110cfb655f6eb3a8a4871bb6f74d66013f9decf5f5d902d53c8ff37d167098abd1e90c9e272993ebeb89b96e6d8a86c4509f871ee4057d42c18fb0bce996
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:*":
+  version: 19.0.2
+  resolution: "@types/react@npm:19.0.2"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10c0/8992f39701fcf1bf893ef8f94a56196445667baf08fe4f6050a14e229a17aad3265ad3efc01595ff3b4d5d5c69da885f9aa4ff80f164a613018734efcff1eb8f
   languageName: node
   linkType: hard
 
@@ -11674,6 +11699,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-typical@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "react-typical@npm:0.1.3"
+  dependencies:
+    "@camwiegert/typical": "npm:^0.1.1"
+  peerDependencies:
+    prop-types: ^15.5.4
+    react: ^15.0.0 || ^16.0.0
+    react-dom: ^15.0.0 || ^16.0.0
+  checksum: 10c0/019ca369001851fbdf3be63bdbcab8d3381cbf42a3f0150227225c35df24bdbfeeffd6edbe5887b2ca5545cd9bb5e8a63171327912250385c8ad32efd0b44604
+  languageName: node
+  linkType: hard
+
 "react@npm:^19.0.0":
   version: 19.0.0
   resolution: "react@npm:19.0.0"
@@ -12908,6 +12946,7 @@ __metadata:
     "@types/react": "npm:^19.0.0"
     "@types/react-dom": "npm:^18.0.0"
     "@types/react-speech-recognition": "npm:^3"
+    "@types/react-typical": "npm:^0"
     eslint: "npm:8.57.0"
     eslint-config-react-app: "npm:^7.0.1"
     firebase: "npm:^11.1.0"
@@ -12917,6 +12956,7 @@ __metadata:
     react-router-dom: "npm:^7.0.2"
     react-scripts: "npm:5.0.1"
     react-speech-recognition: "npm:^3.10.0"
+    react-typical: "npm:^0.1.3"
     tailwindcss: "npm:^3.4.16"
     typescript: "npm:^4.4.2"
   languageName: unknown
