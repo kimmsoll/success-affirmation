@@ -95,7 +95,7 @@ const UpdateAffirmation = () => {
             className='flex flex-col justify-center items-center gap-10'
           >
             <FormTextarea value={value} handleChangeValue={handleChangeValue} />
-            <div className='flex flex-col-reverse w-4/6 sm:flex-row sm:justify-center gap-2'>
+            <div className='flex flex-col-reverse w-4/6 sm:flex-row sm:justify-center gap-2 mb-20'>
               <BackButton />
               <FormButton text='수정하기' disabled={isDisabled} />
             </div>

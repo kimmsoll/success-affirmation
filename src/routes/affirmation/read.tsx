@@ -129,15 +129,15 @@ const ReadAffirmation = () => {
             subTitle={`확언을 입으로 따라 읽어보세요.\n내 목소리를 통해 내면에 더욱 깊이 새겨집니다.`}
           />
           <section className='flex flex-col justify-center items-center gap-10'>
-            <div className='h-80 w-5/6 sm:w-4/6 bg-gray-900 p-5 rounded-lg overflow-scroll'>
-              <p className='my-3 px-5 text-xl break-words'>
+            <div className='h-96 w-5/6 sm:w-4/6 bg-gray-900 p-5 rounded-lg'>
+              <p className='h-full px-5 text-4xl break-words overflow-scroll'>
                 <span className='text-white-500 text-bold'>{readText}</span>
                 <span ref={unreadTextRef} className='text-gray-400'>
                   {unreadText}
                 </span>
               </p>
             </div>
-            <div className='flex flex-col-reverse w-4/6 sm:flex-row sm:justify-center gap-2'>
+            <div className='flex flex-col-reverse w-4/6 sm:flex-row sm:justify-center gap-2 mb-20'>
               <BackButton />
               <Button onClick={handleClickReset} text='다시읽기' icon={<RiResetLeftFill />} style='lg_white' />
               {isSpeaking ? (

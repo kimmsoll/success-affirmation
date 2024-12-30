@@ -62,7 +62,11 @@ const CreateAffirmation = () => {
           title='확언 생성하기'
           subTitle={`당신의 목표를 확언으로 만들어보세요.\n작은 실천이 잠재의식을 변화시키고, 큰 성취를 이끌어냅니다.`}
         />
-        <form onSubmit={handleConfirmSubmit} method='post' className='flex flex-col justify-center items-center gap-10'>
+        <form
+          onSubmit={handleConfirmSubmit}
+          method='post'
+          className='flex flex-col justify-center items-center gap-10 mb-20'
+        >
           <FormTextarea value={value} handleChangeValue={handleChangeValue} />
           <div className='flex flex-col-reverse w-4/6 sm:flex-row sm:justify-center gap-2'>
             <BackButton />

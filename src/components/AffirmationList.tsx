@@ -8,7 +8,7 @@ interface Props {
 
 const AffirmationList = ({ data }: Props) => {
   return (
-    <main className='w-full px-5 py-5'>
+    <main className='w-full px-5 py-5 mb-20'>
       <ul className='flex flex-col items-center gap-4'>
         {data.length ? (
           data.map((item: AffirmationItemType) => <ListItem key={item.id} data={item} />)
