@@ -130,7 +130,7 @@ const ReadAffirmation = () => {
           />
           <section className='flex flex-col justify-center items-center gap-10'>
             <div className='h-96 w-5/6 sm:w-4/6 bg-gray-900 p-5 rounded-lg'>
-              <p className='h-full px-5 text-4xl break-words overflow-scroll'>
+              <p className='h-full sm:px-5 text-4xl break-words overflow-scroll'>
                 <span className='text-white-500 text-bold'>{readText}</span>
                 <span ref={unreadTextRef} className='text-gray-400'>
                   {unreadText}

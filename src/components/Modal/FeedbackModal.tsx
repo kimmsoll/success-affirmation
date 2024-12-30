@@ -31,7 +31,7 @@ const FeedbackModal = ({
 
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center bg-black-500 bg-opacity-80'>
-      <div className='bg-black-600 rounded-lg shadow-lg p-6 max-w-md w-full'>
+      <div className='bg-black-600 rounded-lg shadow-lg p-6 mx-2 max-w-md w-full'>
         <h2 className={`text-lg font-semibold mb-4 ${type === 'error' ? 'text-red-500' : 'text-gray-200'}`}>{title}</h2>
         <p className='text-gray-200 mb-6'>{message}</p>
         <div className='flex justify-end gap-2'>
