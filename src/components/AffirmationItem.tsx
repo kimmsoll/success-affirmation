@@ -11,12 +11,14 @@ import { useModal } from 'hooks/useModal';
 import { useFirebaseMutation } from 'hooks/useFirebaseMutation';
 import { useQueryClient } from '@tanstack/react-query';
 import ROUTES from 'routes';
+import { useAuthContext } from 'context/AuthContext';
 
 interface Props {
   data: AffirmationItemType;
 }
 
 const AffirmationItem = ({ data }: Props) => {
+  const auth = useAuthContext();
   const navigate = useNavigate();
   const [isFold, setIsFold] = useState(true);
 
@@ -24,16 +26,19 @@ const AffirmationItem = ({ data }: Props) => {
   const isConfirmModal = modalType === 'confirm';
 
   const queryClient = useQueryClient();
-  const { mutateAsync: deleteMutate } = useFirebaseMutation<ApiResult<void>, { id: string }>(deleteAffirmationItem, {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
-      navigate(ROUTES.ROOT);
+  const { mutateAsync: deleteMutate } = useFirebaseMutation<ApiResult<void>, { id: string; authedUserId: string }>(
+    deleteAffirmationItem,
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
+        navigate(ROUTES.ROOT);
+      },
+      onError: (error: Error) => {
+        console.error(error);
+        openModal('error');
+      },
     },
-    onError: (error: Error) => {
-      console.error(error);
-      openModal('error');
-    },
-  });
+  );
 
   const handleToggleFold = () => {
     setIsFold((prev) => !prev);
@@ -48,7 +53,9 @@ const AffirmationItem = ({ data }: Props) => {
   };
 
   const handleDelete = async (id: string) => {
-    await deleteMutate({ id });
+    if (auth?.authedUserId) {
+      await deleteMutate({ id, authedUserId: auth.authedUserId });
+    }
   };
 
   const handleClickDelete = () => {

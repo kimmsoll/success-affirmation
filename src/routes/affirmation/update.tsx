@@ -15,9 +15,11 @@ import { useFirebaseMutation } from 'hooks/useFirebaseMutation';
 import { useQueryClient } from '@tanstack/react-query';
 import LoadingSpinner from 'components/Loading';
 import ROUTES from 'routes';
+import { useAuthContext } from 'context/AuthContext';
 
 const UpdateAffirmation = () => {
   const { id } = useParams();
+  const auth = useAuthContext();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -31,21 +33,26 @@ const UpdateAffirmation = () => {
     isLoading,
     isError,
     error,
-  } = useFirebaseQuery(['affirmationItem', id as string], () => getAffirmationItem(id as string));
+  } = useFirebaseQuery(['affirmationItem', id as string], () => {
+    if (auth?.authedUserId) {
+      return getAffirmationItem({ authedUserId: auth?.authedUserId, affirmationId: id as string });
+    }
+    return Promise.reject('로그인한 사용자가 없습니다.');
+  });
 
-  const { mutateAsync: updateMutate } = useFirebaseMutation<ApiResult<void>, { id: string; content: string }>(
-    updateAffirmationItem,
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
-        navigate(ROUTES.ROOT);
-      },
-      onError: (error: Error) => {
-        console.error(error);
-        openModal('error');
-      },
+  const { mutateAsync: updateMutate } = useFirebaseMutation<
+    ApiResult<void>,
+    { id: string; content: string; authedUserId: string }
+  >(updateAffirmationItem, {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['affirmationList'] });
+      navigate(ROUTES.ROOT);
     },
-  );
+    onError: (error: Error) => {
+      console.error(error);
+      openModal('error');
+    },
+  });
 
   useEffect(() => {
     if (fetchedData) {
@@ -71,8 +78,8 @@ const UpdateAffirmation = () => {
   };
 
   const handleSubmit = async () => {
-    if (!!value.trim().length) {
-      await updateMutate({ id: id as string, content: value.trim() });
+    if (!!value.trim().length && !!auth?.authedUserId) {
+      await updateMutate({ id: id as string, content: value.trim(), authedUserId: auth?.authedUserId });
     }
   };
 

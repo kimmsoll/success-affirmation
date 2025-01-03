@@ -12,8 +12,10 @@ import { useFirebaseMutation } from 'hooks/useFirebaseMutation';
 import { ModalType, useModal } from 'hooks/useModal';
 import { useQueryClient } from '@tanstack/react-query';
 import ROUTES from 'routes';
+import { useAuthContext } from 'context/AuthContext';
 
 const CreateAffirmation = () => {
+  const auth = useAuthContext();
   const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
@@ -21,7 +23,7 @@ const CreateAffirmation = () => {
 
   const queryClient = useQueryClient();
 
-  const { mutateAsync: createMutate } = useFirebaseMutation<ApiResult<void>, { content: string }>(
+  const { mutateAsync: createMutate } = useFirebaseMutation<ApiResult<void>, { content: string; authedUserId: string }>(
     createAffirmationItem,
     {
       onSuccess: () => {
@@ -45,8 +47,8 @@ const CreateAffirmation = () => {
   };
 
   const handleSubmit = async () => {
-    if (!!value.trim().length) {
-      await createMutate({ content: value.trim() });
+    if (!!value.trim().length && !!auth?.authedUserId) {
+      await createMutate({ content: value.trim(), authedUserId: auth.authedUserId });
     }
   };
 

@@ -2,19 +2,22 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getAffirmationItem } from 'api/firebase/affirmation';
+
+import { useFirebaseQuery } from 'hooks/useFirebaseQuery';
+import { useAuthContext } from 'context/AuthContext';
 import { FaStop, FaPlay } from 'react-icons/fa';
 import { RiResetLeftFill } from 'react-icons/ri';
 
+import { useModal } from 'hooks/useModal';
 import Button from 'components/Button';
 import BackButton from 'components/Button/BackButton';
 import Title from 'components/Title';
-import { useModal } from 'hooks/useModal';
 import FeedbackModal from 'components/Modal/FeedbackModal';
-import { useFirebaseQuery } from 'hooks/useFirebaseQuery';
 import LoadingSpinner from 'components/Loading';
 
 const ReadAffirmation = () => {
   const { id } = useParams<{ id: string }>();
+  const auth = useAuthContext();
   const { transcript, resetTranscript, listening } = useSpeechRecognition();
 
   const [content, setContent] = useState('');
@@ -29,7 +32,12 @@ const ReadAffirmation = () => {
     isLoading,
     isError,
     error,
-  } = useFirebaseQuery(['affirmationItem', id as string], () => getAffirmationItem(id as string));
+  } = useFirebaseQuery(['affirmationItem', id as string], () => {
+    if (auth?.authedUserId) {
+      return getAffirmationItem({ authedUserId: auth?.authedUserId, affirmationId: id as string });
+    }
+    return Promise.reject('로그인한 사용자가 없습니다.');
+  });
 
   useEffect(() => {
     if (fetchedData) {

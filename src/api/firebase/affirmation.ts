@@ -17,9 +17,9 @@ export const handleApiError = async <T>(
   }
 };
 
-export const getAffirmationList = async (): Promise<ApiResult<AffirmationItemType[]>> => {
+export const getAffirmationList = async (authedUserId: string): Promise<ApiResult<AffirmationItemType[]>> => {
   return handleApiError(async () => {
-    const res = await get(child(dbRef, 'affirmation/'));
+    const res = await get(child(dbRef, `${authedUserId}/affirmation`));
     if (res.exists()) {
       const arr = Object.values(res.val()) as AffirmationItemType[];
       return arr.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -27,9 +27,13 @@ export const getAffirmationList = async (): Promise<ApiResult<AffirmationItemTyp
   }, '확언 목록을 가져오는 데 실패했습니다.');
 };
 
-export const getAffirmationItem = async (id: string): Promise<ApiResult<AffirmationItemType>> => {
+export const getAffirmationItem = async (params: {
+  authedUserId: string;
+  affirmationId: string;
+}): Promise<ApiResult<AffirmationItemType>> => {
+  const { authedUserId, affirmationId } = params;
   return handleApiError(async () => {
-    const res = await get(child(dbRef, `affirmation/${id}`));
+    const res = await get(child(dbRef, `${authedUserId}/affirmation/${affirmationId}`));
     if (res.exists()) {
       return res.val();
     }
@@ -37,12 +41,15 @@ export const getAffirmationItem = async (id: string): Promise<ApiResult<Affirmat
   }, '확언 정보를 가져오는 데 실패했습니다.');
 };
 
-export const createAffirmationItem = async (variables: { content: string }): Promise<ApiResult<void>> => {
-  const { content } = variables;
+export const createAffirmationItem = async (params: {
+  content: string;
+  authedUserId: string;
+}): Promise<ApiResult<void>> => {
+  const { content, authedUserId } = params;
   const id = crypto.randomUUID();
   return handleApiError(async () => {
     try {
-      await set(ref(database, 'affirmation/' + id), {
+      await set(ref(database, `${authedUserId}/affirmation/` + id), {
         id,
         content,
         createdAt: new Date().toISOString(),
@@ -53,9 +60,13 @@ export const createAffirmationItem = async (variables: { content: string }): Pro
   }, '확언 생성에 실패했습니다.');
 };
 
-export const updateAffirmationItem = async (variables: { id: string; content: string }): Promise<ApiResult<void>> => {
-  const { id, content } = variables;
-  const updateRef = ref(database, `affirmation/${id}`);
+export const updateAffirmationItem = async (params: {
+  id: string;
+  content: string;
+  authedUserId: string;
+}): Promise<ApiResult<void>> => {
+  const { id, content, authedUserId } = params;
+  const updateRef = ref(database, `${authedUserId}/affirmation/${id}`);
   return handleApiError(async () => {
     try {
       await runTransaction(updateRef, (item) => {
@@ -71,11 +82,11 @@ export const updateAffirmationItem = async (variables: { id: string; content: st
   }, '확언 수정에 실패했습니다.');
 };
 
-export const deleteAffirmationItem = async (variables: { id: string }) => {
-  const { id } = variables;
+export const deleteAffirmationItem = async (params: { id: string; authedUserId: string }) => {
+  const { id, authedUserId } = params;
   return handleApiError(async () => {
     try {
-      await remove(ref(database, `affirmation/${id}`));
+      await remove(ref(database, `${authedUserId}/affirmation/${id}`));
     } catch (error) {
       throw new Error('확언 삭제에 실패했습니다.');
     }

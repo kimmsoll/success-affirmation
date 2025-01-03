@@ -1,5 +1,7 @@
 type LogoutResponse = { id: number };
 type KakaoAuthError = { code: number; msg: string };
+
+type APIRequestSettings = { url: string; data?: any; files?: any };
 declare global {
   interface Window {
     Kakao: {
@@ -11,6 +13,10 @@ declare global {
         setAccessToken: (token: string) => void;
         getAccessToken: () => string;
         logout: () => Promise<LogoutResponse | KakaoAuthError>;
+      };
+      API: {
+        request: (settings: APIRequestSettings) => Promise<any>;
+        cleanup: () => void;
       };
     };
   }

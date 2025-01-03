@@ -9,12 +9,24 @@ import LoadingSpinner from 'components/Loading';
 import { getAffirmationList } from 'api/firebase/affirmation';
 import { useFirebaseQuery } from 'hooks/useFirebaseQuery';
 import { useModal } from 'hooks/useModal';
+import { useAuthContext } from 'context/AuthContext';
 
 const Home = () => {
+  const auth = useAuthContext();
   const [data, setData] = useState<AffirmationItemType[]>([]);
   const { isOpen, openModal, closeModal, errorMessage } = useModal();
 
-  const { data: fetchedData, isLoading, isError, error } = useFirebaseQuery(['affirmationList'], getAffirmationList);
+  const {
+    data: fetchedData,
+    isLoading,
+    isError,
+    error,
+  } = useFirebaseQuery(['affirmationList'], () => {
+    if (auth?.authedUserId) {
+      return getAffirmationList(auth.authedUserId);
+    }
+    return Promise.reject('로그인한 사용자가 없습니다.');
+  });
 
   useEffect(() => {
     if (fetchedData) {
