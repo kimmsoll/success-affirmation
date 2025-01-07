@@ -9,6 +9,7 @@ const KakaoAuth = () => {
 
   const setAccessToken = async (token: string) => {
     await window.Kakao.Auth.setAccessToken(token);
+    auth?.setAccessToken(token);
     auth?.setIsAuthed(true);
   };
 
