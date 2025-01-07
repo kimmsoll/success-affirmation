@@ -53,7 +53,7 @@ const ReadAffirmation = () => {
 
   const handleClickStart = () => {
     setIsSpeaking(true);
-    SpeechRecognition.startListening({ continuous: true });
+    SpeechRecognition.startListening({ language: 'ko-KR', continuous: true });
   };
 
   const handleClickStop = () => {
@@ -72,7 +72,7 @@ const ReadAffirmation = () => {
   useEffect(() => {
     // 일시정지 버튼을 누르기 전까지는, 음성 인식이 종료되면 재시작
     if (isSpeaking && !listening) {
-      SpeechRecognition.startListening({ continuous: true });
+      SpeechRecognition.startListening({ language: 'ko-KR', continuous: true });
     }
   }, [isSpeaking, listening]);
 
